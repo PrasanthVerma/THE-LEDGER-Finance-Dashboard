@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Tailwind v4 — Theme Integration & Custom Utilities
+   ============================================================ */
+@theme {
+  --font-family-display: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-family-body: 'Inter', system-ui, sans-serif;
+}
+
+@utility transition-smooth {
+  transition: var(--transition-smooth);
+}
+
+@utility transition-fast {
+  transition: var(--transition-fast);
+}
+
+/* ============================================================
+   THE LEDGER — CSS Design Tokens
+   Edit these variables to restyle the entire dashboard
+   ============================================================ */
+:root {
+  /* === Surface / Background Hierarchy === */
+  --surface-void:    #0a0e17;
+  --surface-base:    #0f131c;
+  --surface-low:     #181b25;
+  --surface-card:    #1c1f29;
+  --surface-high:    #262a34;
+  --surface-highest: #31353f;
+
+  /* === Brand / Accent === */
+  --accent:          #00e5ff;
+  --accent-dim:      #00daf3;
+  --accent-glow:     rgba(0, 229, 255, 0.12);
+  --accent-glow-btn: rgba(0, 229, 255, 0.18);
+
+  /* === Revenue / Income / Positive === */
+  --income:          #00ff88;
+  --income-dim:      #00e479;
+  --income-bg:       rgba(0, 255, 136, 0.10);
+  --income-border:   rgba(0, 255, 136, 0.25);
+
+  /* === Expense / Negative / Error === */
+  --expense:         #ff3b5c;
+  --expense-dim:     #e02e4a;
+  --expense-bg:      rgba(255, 59, 92, 0.12);
+  --expense-border:  rgba(255, 59, 92, 0.25);
+
+  /* === Typography === */
+  --text-primary:    #dfe2ef;
+  --text-secondary:  #7a8896;
+  --text-tertiary:   #4a5568;
+  --text-accent:     #00e5ff;
+
+  /* === Borders === */
+  --border-subtle:   rgba(59, 73, 76, 0.30);
+  --border-card:     rgba(59, 73, 76, 0.18);
+  --border-focus:    rgba(0, 229, 255, 0.50);
+
+  /* === Sidebar === */
+  --sidebar-width:       200px;
+  --sidebar-width-mobile: 240px;
+  --sidebar-bg:          var(--surface-void);
+  --sidebar-active-bg:   rgba(0, 229, 255, 0.08);
+
+  /* === Navbar === */
+  --navbar-height: 64px;
+  --navbar-bg:     var(--surface-base);
+
+  /* === Radius === */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+  /* === Spacing === */
+  --gap-xs:  4px;
+  --gap-sm:  8px;
+  --gap-md:  16px;
+  --gap-lg:  24px;
+  --gap-xl:  32px;
+
+  /* === Transitions === */
+  --transition-fast:   all 0.15s ease;
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Shadows / Glows === */
+  --shadow-card:  0 4px 24px rgba(0, 0, 0, 0.25);
+  --shadow-glow-accent: 0 0 32px rgba(0, 229, 255, 0.08);
+  --shadow-glow-income: 0 0 16px rgba(0, 255, 136, 0.12);
+  --shadow-ambient: 0 8px 40px rgba(0, 218, 243, 0.06);
+
+  /* === Fonts === */
+  --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* === Chart Colors === */
+  --chart-1: var(--accent);
+  --chart-2: var(--income);
+  --chart-3: #ff6b8a;
+  --chart-4: #7c8db5;
+}
+
+/* ============================================================
+   Light Mode Overrides
+   ============================================================ */
+html.light {
+  --surface-void:    #f0f4f8;
+  --surface-base:    #f8fafc;
+  --surface-low:     #edf2f7;
+  --surface-card:    #ffffff;
+  --surface-high:    #e2e8f0;
+  --surface-highest: #cbd5e0;
+  --text-primary:    #1a202c;
+  --text-secondary:  #4a5568;
+  --text-tertiary:   #a0aec0;
+  --border-subtle:   rgba(0, 0, 0, 0.10);
+  --border-card:     rgba(0, 0, 0, 0.07);
+  --sidebar-bg:      #1a2035;
+  --navbar-bg:       #ffffff;
+  --shadow-card:     0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   Base Reset & Global — wrapped in @layer base so Tailwind
+   utilities can override freely
+   ============================================================ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--surface-base);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
+}
+
+/* ============================================================
+   Component classes — in @layer components so Tailwind utilities
+   (p-6, mb-5, etc.) can OVERRIDE them when needed
+   ============================================================ */
+@layer components {
+  /* --- Typography --- */
+  .label-caps {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .display-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  /* --- Card --- */
+  .card {
+    background: var(--surface-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+
+  .card:hover {
+    border-color: var(--border-subtle);
+    box-shadow: var(--shadow-card), var(--shadow-glow-accent);
+  }
+
+  /* --- Badges --- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: var(--transition-fast);
+  }
+
+  .badge-income {
+    background: var(--income-bg);
+    color: var(--income);
+    border: 1px solid var(--income-border);
+  }
+
+  .badge-expense {
+    background: var(--expense-bg);
+    color: var(--expense);
+    border: 1px solid var(--expense-border);
+  }
+
+  .badge-category {
+    background: rgba(255,255,255,0.06);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  /* --- Buttons --- */
+  .btn-primary {
+    background: var(--accent);
+    color: #001f24;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 0 0 0 var(--accent-glow-btn);
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 0 20px var(--accent-glow-btn);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 13px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+/* ============================================================
+   Scrollbar (global, unlayered is fine)
+   ============================================================ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--surface-void); }
+::-webkit-scrollbar-thumb { background: var(--surface-high); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ============================================================
+   Recharts Overrides
+   ============================================================ */
+.recharts-tooltip-wrapper { outline: none !important; }
+.recharts-surface { overflow: visible; }
