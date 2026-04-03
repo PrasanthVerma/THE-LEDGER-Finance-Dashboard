@@ -11,7 +11,7 @@ This project was developed as part of a frontend assessment, with a strong focus
 
 ## 🚀 Live Demo
 
-👉 https://your-project.vercel.app
+👉 https://the-ledger-finance-dashboard.vercel.app/
 
 ---
 
