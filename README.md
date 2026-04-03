@@ -6,6 +6,9 @@ This project was developed as part of a frontend assessment, with a strong focus
 
 ---
 
+## Github Repo 
+ https://github.com/PrasanthVerma/THE-LEDGER-Finance-Dashboard
+
 ## 🚀 Live Demo
 
 👉 https://your-project.vercel.app
